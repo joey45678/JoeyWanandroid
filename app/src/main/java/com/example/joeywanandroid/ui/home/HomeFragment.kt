@@ -33,7 +33,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getArticle()
+        if (savedInstanceState==null) {
+//            viewModel.getArticle()
+        }
     }
 
 

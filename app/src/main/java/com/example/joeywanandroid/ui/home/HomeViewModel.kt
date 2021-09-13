@@ -27,7 +27,6 @@ class HomeViewModel @Inject constructor(private val wanService: WanService) : Vi
                     response: Response<WanRequestRoot<ArticleWrapper<ArticleBean>>>
                 ) {
                     Log.e(TAG, "onResponse: ${response.body()}")
-                    var a = 1
                 }
 
                 override fun onFailure(
