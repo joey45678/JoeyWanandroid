@@ -18,11 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private val topDestinations =
-        listOf(R.navigation.home_graph, R.navigation.account_graph, R.navigation.website_graph)
-    private var navHostFragments = ArrayList<Fragment>()
+
+
+    private val navHostFragments = ArrayList<Fragment>()
     private val itemToDes =
         mapOf(R.id.bottom_nav_home to 0, R.id.bottom_nav_account to 1, R.id.bottom_nav_website to 2)
     private var prevBottomItemId = -1
@@ -33,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomnav_view)
 
+        val topDestinations = listOf(R.navigation.home_graph, R.navigation.account_graph, R.navigation.website_graph)
         if (savedInstanceState == null)
             for (topDestination in topDestinations)
                 navHostFragments.add(NavHostFragment.create(topDestination))
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 prevBottomItemId = it.itemId
                 true
             }
-
         }
     }
 
