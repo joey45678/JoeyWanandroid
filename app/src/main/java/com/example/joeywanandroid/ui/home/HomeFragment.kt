@@ -39,10 +39,22 @@ class HomeFragment : BaseFragmentWithList<FragmentHomeBinding, HomeViewModel>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState==null) {
-//            viewModel.getArticle()
+            viewModel.apply {
+                getHomeArticle()
+                getFriendWebsite()
+                getHomeBanner()
+                getHomeHotKey()
+                getHomeTopArticle()
+                //    test to parse json by manual operation
+//                getHomeHotKey2()
+            }
 //            showLoadingFaild()
         }
 
+    }
+
+    override fun retry(showList: Boolean) {
+        TODO("Not yet implemented")
     }
 
 //    override fun retry() {

@@ -33,8 +33,8 @@ abstract class BaseFragmentWithList<VB: ViewDataBinding,VM:ViewModel>: Fragment(
         val baseFrgContainer = layout.findViewById<ViewGroup>(R.id.basefrg_container)
         val parent = baseFrgContainer.parent as ViewGroup
         loadingListHolder = layout.findViewById(R.id.loading_list_holder)
-        parent.removeView(baseFrgContainer)
-        binding = DataBindingUtil.inflate<VB>(activity?.layoutInflater!!, setLayoutId(), null, false)
+
+        binding = DataBindingUtil.inflate<VB>(activity?.layoutInflater!!, setLayoutId(), baseFrgContainer, false)
         baseFrgContainer.addView(binding.root)
         mainContentView = binding.root
         return layout
