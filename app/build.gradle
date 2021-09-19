@@ -65,8 +65,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-
-
+    
+    implementation  "com.scwang.smart:refresh-layout-kernel:$rootProject.smartRefresh"
+    implementation  "com.scwang.smart:refresh-header-classics:$rootProject.smartRefresh"
+    implementation  "com.scwang.smart:refresh-footer-classics:$rootProject.smartRefresh"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
