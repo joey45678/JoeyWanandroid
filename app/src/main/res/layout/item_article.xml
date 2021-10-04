@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="articleBean"
+            type="com.example.joeywanandroid.bean.ArticleBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:text="@{articleBean.title}"
+            android:id="@+id/item_article_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题" />
+
+        <!--一天以内-->
+        <TextView
+            android:id="@+id/item_article_isNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textStyle="italic|bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/item_article_from"
+            app:layout_constraintTop_toBottomOf="@id/item_article_title" />
+        <!-- niceShareDate -->
+        <TextView
+            android:text='@{articleBean.niceShareDate==null?"":articleBean.niceShareDate}'
+            android:id="@+id/item_article_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_article_from"
+            tools:text="2020-1-1" />
+        <!--author-->
+        <TextView
+            android:text='@{articleBean.author==null?"":articleBean.author}'
+            android:id="@+id/item_article_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintLeft_toRightOf="@id/item_article_time"
+            app:layout_constraintTop_toBottomOf="@id/item_article_from"
+            tools:text="Joey" />
+        <!--chapterName-->
+        <TextView
+            android:text='@{articleBean.chapterName==null?"":articleBean.chapterName}'
+            android:id="@+id/item_article_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_article_title"
+            tools:text="自助" />
+        <!--superChapterName-->
+        <TextView
+            android:text='@{articleBean.superChapterName==null?"":articleBean.superChapterName}'
+            android:id="@+id/item_article_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/item_article_isNew"
+            app:layout_constraintTop_toBottomOf="@id/item_article_title"
+            tools:text="来源：公众号" />
+        <!---->
+
+        <ImageView
+            android:id="@+id/item_article_zan"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_launcher_background"
+            android:contentDescription="赞一个~"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_article_category" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

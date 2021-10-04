@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.joeywanandroid.R
 
 
-abstract class BaseFragmentWithList<VB: ViewDataBinding,VM:ViewModel>: Fragment() {
+abstract class BaseFragmentWithList<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
     private val TAG = "BaseFragment"
-    lateinit var binding:VB
-    lateinit var viewModel:VM
-    lateinit var loadingListHolder:RecyclerView
+    lateinit var binding: VB
+    lateinit var viewModel: VM
+    lateinit var loadingListHolder: RecyclerView
 
-    lateinit var layout:View
-    lateinit var mainContentView:View
-    var loadingFaildView:View?=null
+    lateinit var layout: View
+    lateinit var mainContentView: View
+    var loadingFaildView: View? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,11 +30,16 @@ abstract class BaseFragmentWithList<VB: ViewDataBinding,VM:ViewModel>: Fragment(
 
         // Inflate the layout for this fragment
         layout = inflater.inflate(R.layout.fragment_base_with_list, null)
-        val baseFrgContainer = layout.findViewById<ViewGroup>(R.id.basefrg_container)
-        val parent = baseFrgContainer.parent as ViewGroup
-        loadingListHolder = layout.findViewById(R.id.loading_list_holder)
 
-        binding = DataBindingUtil.inflate<VB>(activity?.layoutInflater!!, setLayoutId(), baseFrgContainer, false)
+        val baseFrgContainer = layout.findViewById<ViewGroup>(R.id.basefrg_container)
+        loadingListHolder = layout.findViewById(R.id.loading_list_holder)
+        loadingListHolder.adapter = LoadingListHolderAdapter()
+        binding = DataBindingUtil.inflate<VB>(
+            activity?.layoutInflater!!,
+            setLayoutId(),
+            baseFrgContainer,
+            false
+        )
         baseFrgContainer.addView(binding.root)
         mainContentView = binding.root
         return layout
@@ -43,25 +48,54 @@ abstract class BaseFragmentWithList<VB: ViewDataBinding,VM:ViewModel>: Fragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = setViewModel()
-        loadingListHolder.adapter = LoadingListHolderAdapter()
+
     }
 
-   abstract fun setLayoutId():Int
-   abstract fun setViewModel():VM
-   abstract fun retry(showList:Boolean = true)
-    fun showLoadingFaild(){
-        if (loadingFaildView==null) {
+    fun showBannerHolder() {
+        (loadingListHolder.adapter as LoadingListHolderAdapter).setShowBanner(true)
+    }
+
+    abstract fun setLayoutId(): Int
+    abstract fun setViewModel(): VM
+    abstract fun retry(showList: Boolean = true)
+    fun showLoading() {
+        loadingListHolder.visibility = View.VISIBLE
+        hideLoadingFaild()
+        hideMainContent()
+    }
+
+    fun hideLoading() {
+        loadingListHolder.visibility = View.GONE
+    }
+
+    fun showLoadingFaild() {
+        if (loadingFaildView == null) {
             val vstub = layout.findViewById<ViewStub>(R.id.loading_faild)
             loadingFaildView = vstub.inflate()
-            loadingFaildView?.visibility = View.VISIBLE
             vstub.visibility = View.VISIBLE
             val retry = loadingFaildView?.findViewById<Button>(R.id.retry)
             retry?.setOnClickListener {
                 retry()
             }
         }
-
         loadingFaildView?.visibility = View.VISIBLE
-        mainContentView.visibility =View.GONE
+        hideLoading()
+        hideMainContent()
     }
+
+    fun hideLoadingFaild() {
+        loadingFaildView?.visibility = View.GONE
+    }
+
+    fun showMainContent() {
+        mainContentView.visibility = View.VISIBLE
+        hideLoading()
+        hideLoadingFaild()
+    }
+
+    fun hideMainContent() {
+        mainContentView.visibility = View.GONE
+    }
+
+
 }
